@@ -9,7 +9,7 @@ package io.sevenluck.chat.server;
  *
  * @author 7luck
  */
-public class ServenLuckChatServer {
+public class SevenLuckChatServer {
     
     
     public static void main(String[] args) {
