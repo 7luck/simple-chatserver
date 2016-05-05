@@ -14,6 +14,7 @@ public class SevenLuckChatServer {
     
     public static void main(String[] args) {
         // hier soll was Schlaues passieren
-        System.out.println("Sockets here. ;)");
+        // Git Eye Test fsdf
+        System.out.println("Sockets here. ;) ");
     }
 }
