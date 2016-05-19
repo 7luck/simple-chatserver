@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package io.sevenluck.chat.server;
+package io.sevenluck.chat;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  *
  * @author 7luck
  */
+@SpringBootApplication
 public class SevenLuckChatServer {
     
-    
     public static void main(String[] args) {
-        // hier soll was Schlaues passieren
-        // Git Eye Test fsdf
-        System.out.println("Sockets here. ;) ");
+        SpringApplication.run(SevenLuckChatServer.class, args);
     }
+    
+   
 }
