@@ -21,7 +21,7 @@ public class UserController {
     
     @RequestMapping(path = "/users", method=RequestMethod.GET)
     public User users() {
-        return new User("lukas", "kaminski");
+        return new User("peter", "schmidt");
     }
     
 }
