@@ -6,8 +6,11 @@
 package io.sevenluck.chat.controller;
 
 import io.sevenluck.chat.domain.User;
+import io.sevenluck.chat.dto.UserDTO;
 import io.sevenluck.chat.repository.UserRepository;
+import io.sevenluck.chat.service.UserService;
 import java.util.List;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,8 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -40,22 +45,34 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @RequestMapping(value="{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
     User getById(@PathVariable("id") Long id) {
         return userRepository.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public User save(@RequestBody User user) {
-        logger.info("{}", user);
+    public User save(@RequestBody @Valid User user) {
+        logger.info("create {}", user);
 
         return userRepository.save(user);
+    }
+    
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT)
+    public UserDTO update(@PathVariable("id") Long id, @RequestBody UserDTO dtoUser) {
+        
+        logger.info("userdto {} for id {} ", dtoUser, id);
+        
+        final User user = dtoUser.toUser();
+        user.setId(id);
+        
+        return new UserDTO(userService.update(user));
     }
     
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<?> handleException(Exception ex) {
-        return new ResponseEntity<>(new User("b","a"), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        logger.error("error:", ex);
+        return new ResponseEntity<>(new User(0L, "b","a"), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
