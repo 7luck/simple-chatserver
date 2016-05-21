@@ -6,6 +6,7 @@
 package io.sevenluck.chat.repository;
 
 import io.sevenluck.chat.domain.User;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,5 +14,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author loki
  */
 public interface UserRepository extends CrudRepository<User, Long>{
+    
+    public List<User> findAll();
     
 }
