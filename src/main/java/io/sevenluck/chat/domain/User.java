@@ -2,6 +2,11 @@ package io.sevenluck.chat.domain;
 
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,17 +18,21 @@ import java.io.Serializable;
  *
  * @author loki
  */
+@Entity
 public class User implements Serializable {
     
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
     private String firstname;
     private String lastname;
+    
+    public User() {}
 
     public User(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    
-    
 
     public String getFirstname() {
         return firstname;
@@ -39,6 +48,14 @@ public class User implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
     
