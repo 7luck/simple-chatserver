@@ -13,38 +13,34 @@ import java.io.Serializable;
  */
 public class ChatMessage implements Serializable {
     
-    private String firstname;
-    private String message;
+    private String nickname;
+    private String text;
 
-    public ChatMessage() {
-    }
+    public ChatMessage() {}
     
-    public ChatMessage(String firstname, String message) {
-        this.firstname = firstname;
-        this.message = message;
-    }
-    
-    public String getFirstname() {
-        return firstname;
+    public ChatMessage(String text, String nickname) {
+        this.nickname = nickname;
+        this.text = text;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getMessage() {
-        return message;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
     public String toString() {
-        return "ChatMessage{" + "firstname=" + firstname + ", message=" + message + '}';
+        return "ChatMessage{" + "nickname=" + nickname + ", text=" + text + '}';
     }
-    
-    
-    
 }
