@@ -39,6 +39,11 @@ public class ChatMessage implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" + "firstname=" + firstname + ", message=" + message + '}';
+    }
     
     
     
