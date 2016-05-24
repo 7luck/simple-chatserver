@@ -24,12 +24,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(chatWebSocketHandler(), "/echo").setAllowedOrigins("*");
+        registry.addHandler(echoWebSocketHandler(), "/echo").setAllowedOrigins("*");
     }
 
     @Bean
-    public WebSocketHandler chatWebSocketHandler() {
-        return new ChatWebSocketHandler();
+    public WebSocketHandler echoWebSocketHandler() {
+        return new EchoWebSocketHandler();
     }
 
 }

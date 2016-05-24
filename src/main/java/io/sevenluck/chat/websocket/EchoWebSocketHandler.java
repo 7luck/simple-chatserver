@@ -7,6 +7,8 @@ package io.sevenluck.chat.websocket;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
@@ -17,20 +19,25 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
  *
  * @author loki
  */
-public class ChatWebSocketHandler extends TextWebSocketHandler {
+public class EchoWebSocketHandler extends TextWebSocketHandler {
+    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     List<WebSocketSession> sessions = new ArrayList<>();
 
-    public ChatWebSocketHandler() {
+    public EchoWebSocketHandler() {
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        logger.info("afterConnectionEstablished" + session.getRemoteAddress().getAddress());
         this.sessions.add(session);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        logger.info("handleTextMessage");
+        
         String payload = message.getPayload();
         
         for (WebSocketSession webSocketSession : sessions) {
@@ -40,6 +47,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        logger.info("afterConnectionClosed" + session.getRemoteAddress().getAddress());
+        
         sessions.remove(session);
     }
     
