@@ -28,7 +28,7 @@ public class ChatChannel implements Serializable {
     
     private Date        joined;
     private ChatRoom    chatRoom;
-    private ChatUser    member;
+    private ChatMember    member;
 
     
     @Id
@@ -55,11 +55,11 @@ public class ChatChannel implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "member_id")
-    public ChatUser getMember() {
+    public ChatMember getMember() {
         return member;
     }
 
-    public void setMember(ChatUser member) {
+    public void setMember(ChatMember member) {
         this.member = member;
     }
 

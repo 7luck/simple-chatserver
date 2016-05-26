@@ -19,8 +19,8 @@ import javax.persistence.Table;
  * @author loki
  */
 @Entity
-@Table(name = "chatuser")
-public class ChatUser implements Serializable {
+@Table(name = "chatmember")
+public class ChatMember implements Serializable {
 
     
     private Long    id;
