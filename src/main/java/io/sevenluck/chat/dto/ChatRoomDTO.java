@@ -18,6 +18,7 @@ public class ChatRoomDTO implements Serializable {
     private Long id;
     private String name;
     private String description;
+    private String password;
     private boolean publicChat;
 
     public ChatRoomDTO() {
@@ -41,6 +42,14 @@ public class ChatRoomDTO implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setDescription(String description) {
