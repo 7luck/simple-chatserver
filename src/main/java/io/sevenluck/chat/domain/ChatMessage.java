@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,14 +18,14 @@ import javax.persistence.Table;
  * @author loki
  */
 @Entity
-@Table(name = "chatchannels")
-public class ChatChannel implements Serializable {
+@Table(name = "chatmessages")
+public class ChatMessage implements Serializable {
 
     private Long id;
-
-    private Date joined;
+    private Date inserted;
+    private String text;
+    private ChatMember author;
     private ChatRoom chatRoom;
-    private ChatMember member;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,34 +37,36 @@ public class ChatChannel implements Serializable {
         this.id = id;
     }
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "chatroom_id")
+    public Date getInserted() {
+        return inserted;
+    }
+
+    public void setInserted(Date inserted) {
+        this.inserted = inserted;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public ChatMember getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(ChatMember author) {
+        this.author = author;
+    }
+
     public ChatRoom getChatRoom() {
         return chatRoom;
     }
 
     public void setChatRoom(ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
-    }
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    public ChatMember getMember() {
-        return member;
-    }
-
-    public void setMember(ChatMember member) {
-        this.member = member;
-    }
-
-    public Date getJoined() {
-        return joined;
-    }
-
-    public void setJoined(Date joined) {
-        this.joined = joined;
     }
 
 }
