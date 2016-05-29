@@ -6,6 +6,7 @@
 package io.sevenluck.chat.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class ChatMember implements Serializable {
     private Long    id;
     private String  nickname;
     private String  password;
-    private String  joined;
+    private Date    joined;
 
     private Set<ChatChannel> chatchannels;
 
@@ -56,14 +57,6 @@ public class ChatMember implements Serializable {
         this.password = password;
     }
 
-    public String getJoined() {
-        return joined;
-    }
-
-    public void setJoined(String joined) {
-        this.joined = joined;
-    }
-
     @OneToMany(mappedBy = "member")
     public Set<ChatChannel> getChatchannels() {
         return chatchannels;
@@ -73,4 +66,13 @@ public class ChatMember implements Serializable {
         this.chatchannels = chatchannels;
     }
 
+    public Date getJoined() {
+        return joined;
+    }
+
+    public void setJoined(Date joined) {
+        this.joined = joined;
+    }
+
+    
 }

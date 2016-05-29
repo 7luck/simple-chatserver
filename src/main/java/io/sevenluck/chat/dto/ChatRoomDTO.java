@@ -6,8 +6,6 @@
 package io.sevenluck.chat.dto;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.validation.constraints.NotNull;
 
 /**
  *
