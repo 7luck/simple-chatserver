@@ -15,7 +15,7 @@ public class ExceptionDTO {
     private ErrorType type;
     
     public static enum ErrorType {
-        ERROR, CONFLICT, VALIDATION, UNAUTHORIZED
+        ERROR, CONFLICT, VALIDATION, UNAUTHORIZED, ENTITY_NOTFOUND
     }
     
     private ExceptionDTO(ErrorType type, String message) {
@@ -27,8 +27,12 @@ public class ExceptionDTO {
         return new ExceptionDTO(ErrorType.UNAUTHORIZED, message);
     }
     
-    public static ExceptionDTO newValidationInstance(final String message) {
+    public static ExceptionDTO newConflictInstance(final String message) {
         return new ExceptionDTO(ErrorType.CONFLICT, message);
+    }
+    
+    public static ExceptionDTO newNotFoundInstance(final String message) {
+        return new ExceptionDTO(ErrorType.ENTITY_NOTFOUND, message);
     }
 
     public String getMessage() {

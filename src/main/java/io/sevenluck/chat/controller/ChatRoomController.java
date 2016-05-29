@@ -52,7 +52,7 @@ public class ChatRoomController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<?> handleException(ChatRoomAlreadyExists e) {
         logger.error("validate:", e.getMessage());
-        return new ResponseEntity<>(ExceptionDTO.newValidationInstance(e.getMessage()), new HttpHeaders(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(ExceptionDTO.newConflictInstance(e.getMessage()), new HttpHeaders(), HttpStatus.CONFLICT);
     }
     
     

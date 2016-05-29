@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -29,6 +30,24 @@ public class ChatChannel implements Serializable {
     private ChatRoom chatRoom;
     private ChatMember member;
 
+    public ChatChannel() {
+    }
+
+    
+    
+    public static ChatChannel newInstance(ChatRoom chatRoom, ChatMember member) {
+        ChatChannel channel = new ChatChannel(chatRoom, member);
+        channel.setJoined(new Date());
+        return channel;
+    }
+    
+    private ChatChannel(ChatRoom chatRoom, ChatMember member) {
+        this.chatRoom = chatRoom;
+        this.member = member;
+    }
+
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -39,7 +58,7 @@ public class ChatChannel implements Serializable {
         this.id = id;
     }
 
-    @Id
+    
     @ManyToOne
     @JoinColumn(name = "chatroom_id")
     public ChatRoom getChatRoom() {
@@ -50,7 +69,7 @@ public class ChatChannel implements Serializable {
         this.chatRoom = chatRoom;
     }
 
-    @Id
+    
     @ManyToOne
     @JoinColumn(name = "member_id")
     public ChatMember getMember() {
@@ -61,6 +80,7 @@ public class ChatChannel implements Serializable {
         this.member = member;
     }
 
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     public Date getJoined() {
         return joined;
     }
