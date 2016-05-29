@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,11 +22,11 @@ import javax.persistence.Table;
 @Table(name = "chatmessages")
 public class ChatMessage implements Serializable {
 
-    private Long id;
-    private Date inserted;
-    private String text;
-    private ChatMember author;
-    private ChatRoom chatRoom;
+    private Long        id;
+    private Date        inserted;
+    private String      text;
+    private ChatMember  author;
+    private ChatRoom    chatRoom;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,6 +54,7 @@ public class ChatMessage implements Serializable {
         this.text = text;
     }
 
+    @ManyToOne
     public ChatMember getAuthor() {
         return author;
     }
@@ -61,6 +63,7 @@ public class ChatMessage implements Serializable {
         this.author = author;
     }
 
+    @ManyToOne
     public ChatRoom getChatRoom() {
         return chatRoom;
     }

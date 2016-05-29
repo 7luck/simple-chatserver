@@ -35,7 +35,7 @@ public class EchoWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        logger.info("handleTextMessage");
+        logger.info("handleTextMessage " + session.getAttributes().toString());
         
         String payload = message.getPayload();
         
