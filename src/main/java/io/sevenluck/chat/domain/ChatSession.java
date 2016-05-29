@@ -7,10 +7,13 @@ package io.sevenluck.chat.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -31,6 +34,23 @@ public class ChatSession implements Serializable {
     private String      authtoken;
     private String      ipAddress;
 
+    public ChatSession() {
+        super();
+        this.inserted = new Date();
+    }
+
+    
+    
+    public ChatSession(ChatMember member, String authtoken, String ipAddress) {
+        this();
+        this.member = member;
+        this.nickname = member.getNickname();
+        this.authtoken = authtoken;
+        this.ipAddress = ipAddress;
+    }
+
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -57,6 +77,7 @@ public class ChatSession implements Serializable {
         this.lastModified = lastModified;
     }
 
+    @ManyToOne
     public ChatMember getMember() {
         return member;
     }

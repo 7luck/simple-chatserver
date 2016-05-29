@@ -15,12 +15,16 @@ public class ExceptionDTO {
     private ErrorType type;
     
     public static enum ErrorType {
-        ERROR, CONFLICT, VALIDATION
+        ERROR, CONFLICT, VALIDATION, UNAUTHORIZED
     }
     
     private ExceptionDTO(ErrorType type, String message) {
         this.type = type;
         this.message = message;
+    }
+    
+    public static ExceptionDTO newUnauthorizedInstance(final String message) {
+        return new ExceptionDTO(ErrorType.UNAUTHORIZED, message);
     }
     
     public static ExceptionDTO newValidationInstance(final String message) {

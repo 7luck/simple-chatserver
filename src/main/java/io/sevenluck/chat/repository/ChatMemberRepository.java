@@ -17,4 +17,6 @@ public interface ChatMemberRepository extends CrudRepository<ChatMember, Long> {
     
     List<ChatMember> findByNickname(String nickname);
     
+    List<ChatMember> findByNicknameAndPassword(String nickname, String password);
+    
 }
