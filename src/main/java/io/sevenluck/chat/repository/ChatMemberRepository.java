@@ -5,7 +5,7 @@
  */
 package io.sevenluck.chat.repository;
 
-import io.sevenluck.chat.domain.User;
+import io.sevenluck.chat.domain.ChatMember;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,9 +13,10 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author loki
  */
-public interface UserRepository extends CrudRepository<User, Long>{
+public interface ChatMemberRepository extends CrudRepository<ChatMember, Long> {
     
-    @Override
-    public List<User> findAll();
+    List<ChatMember> findByNickname(String nickname);
+    
+    List<ChatMember> findByNicknameAndPassword(String nickname, String password);
     
 }
