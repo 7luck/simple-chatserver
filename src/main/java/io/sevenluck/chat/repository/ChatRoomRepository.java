@@ -18,5 +18,7 @@ public interface ChatRoomRepository extends CrudRepository<ChatRoom, Long> {
 
     @Override
     public List<ChatRoom> findAll();
+    
+    public List<ChatRoom> findByName(String name);
 
 }

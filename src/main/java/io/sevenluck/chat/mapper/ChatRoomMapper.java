@@ -8,6 +8,7 @@ package io.sevenluck.chat.mapper;
 import io.sevenluck.chat.domain.ChatRoom;
 import io.sevenluck.chat.dto.ChatRoomDTO;
 import io.sevenluck.chat.util.MD5Util;
+import java.util.Date;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -33,8 +34,9 @@ public class ChatRoomMapper {
     
     public static ChatRoom toEntity(ChatRoom chatroom, ChatRoomDTO value) {
         ChatRoom result = new ChatRoom();
+        result.setInserted(new Date());
         
-        if (null == chatroom) {
+        if (null != chatroom) {
             result = SerializationUtils.clone(chatroom);
         }
         

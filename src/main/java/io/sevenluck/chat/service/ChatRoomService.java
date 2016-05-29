@@ -9,7 +9,10 @@ package io.sevenluck.chat.service;
  *
  * @author loki
  */
+import io.sevenluck.chat.domain.ChatRoom;
 import io.sevenluck.chat.dto.ChatRoomDTO;
+import io.sevenluck.chat.exception.ChatRoomAlreadyExists;
+import io.sevenluck.chat.mapper.ChatRoomMapper;
 import io.sevenluck.chat.repository.ChatRoomRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,23 @@ public class ChatRoomService {
     
     public List<ChatRoomDTO> findByNickName(final String nickname) {
         return null;
+    }
+    
+    public ChatRoomDTO create(ChatRoomDTO chatroom) throws Exception {
+        
+        validateIfExists(chatroom);
+        
+        final ChatRoom entity = repository.save(ChatRoomMapper.toEntity(chatroom));
+        return ChatRoomMapper.toDTO(entity);
+    }
+    
+    private void validateIfExists(ChatRoomDTO chatroom) throws Exception {
+        
+        List<ChatRoom> results = repository.findByName(chatroom.getName());
+        if (!results.isEmpty()) {
+            throw new ChatRoomAlreadyExists("chatroom with name " + chatroom.getName() + " already exists.");
+        }
+        
     }
 
 }
