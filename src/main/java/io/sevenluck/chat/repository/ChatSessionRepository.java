@@ -6,6 +6,7 @@
 package io.sevenluck.chat.repository;
 
 import io.sevenluck.chat.domain.ChatSession;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -13,5 +14,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author loki
  */
 public interface ChatSessionRepository extends CrudRepository<ChatSession, Long>  {
+    
+    public List<ChatSession> findByAuthtoken(String authtoken);
     
 }
