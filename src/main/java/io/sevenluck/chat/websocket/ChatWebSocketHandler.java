@@ -6,9 +6,14 @@
 package io.sevenluck.chat.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.sevenluck.chat.domain.ChatSession;
 import io.sevenluck.chat.repository.ChatMessageRepository;
+import io.sevenluck.chat.repository.ChatSessionRepository;
 import io.sevenluck.chat.websocket.domain.ChatMessage;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,19 +31,27 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class ChatWebSocketHandler extends TextWebSocketHandler {
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    //private final ChatMessageRepository messageRepository;
+    
+    private ChatMessageRepository messageRepository;
+    private ChatSessionRepository chatSessionRepository;
     
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
     
-    public ChatWebSocketHandler() {
-        
-    }
+    Map<String, SessionItem> sessionMap = new ConcurrentHashMap<>();
+    
+    public ChatWebSocketHandler() {}
     
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        logger.info("afterConnectionEstablished" + session.getRemoteAddress().getAddress());        
+        logger.info("afterConnectionEstablished from ip " + session.getRemoteAddress().getAddress());        
         
-        this.sessions.add(session);
+        final String token = (String) session.getAttributes().get(HttpAuthTokenHandShakeInterceptor.X_TOKEN);
+        List<ChatSession> chatSessions = chatSessionRepository.findByAuthtoken(token);
+        if (!sessions.isEmpty()) {
+            logger.info("chatsession {} assigned to token {}", chatSessions.get(0), token);
+            this.sessionMap.put(token, new SessionItem(chatSessions.get(0), session));
+        }
+        
     }
     
     @Override
@@ -75,6 +88,34 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         logger.info("afterConnectionClosed" + session.getRemoteAddress().getAddress());
         
         sessions.remove(session);
+    }
+
+    @Autowired
+    public void setMessageRepository(ChatMessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
+
+    @Autowired
+    public void setChatSessionRepository(ChatSessionRepository chatSessionRepository) {
+        this.chatSessionRepository = chatSessionRepository;
+    }
+    
+    public class SessionItem implements Serializable {
+        private final ChatSession       chatSession;
+        private final WebSocketSession  session;
+
+        public SessionItem(ChatSession chatSession, WebSocketSession session) {
+            this.chatSession = chatSession;
+            this.session = session;
+        }
+
+        public ChatSession getChatSession() {
+            return chatSession;
+        }
+
+        public WebSocketSession getSession() {
+            return session;
+        }
     }
     
     
