@@ -6,6 +6,8 @@
 package io.sevenluck.chat.repository;
 
 import io.sevenluck.chat.domain.ChatChannel;
+import io.sevenluck.chat.domain.ChatRoom;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -14,4 +16,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ChatChannelRepository extends CrudRepository<ChatChannel,Long>{
     
+    public List<ChatChannel> findbyChatRoom(ChatRoom room);
 }

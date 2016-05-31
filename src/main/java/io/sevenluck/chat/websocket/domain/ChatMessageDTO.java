@@ -11,14 +11,13 @@ import java.io.Serializable;
  *
  * @author loki
  */
-public class ChatMessage implements Serializable {
+public class ChatMessageDTO implements Serializable {
     
     private String text;
     private String nickname;    
-    private Long   chatroomId;
-    private String authtoken;
+    private Long   chatroomId;    
 
-    public ChatMessage() {}
+    public ChatMessageDTO() {}
 
     public String getNickname() {
         return nickname;
@@ -44,13 +43,5 @@ public class ChatMessage implements Serializable {
         this.chatroomId = chatroomId;
     }
 
-    public String getAuthtoken() {
-        return authtoken;
-    }
-
-    public void setAuthtoken(String authtoken) {
-        this.authtoken = authtoken;
-    }
-    
-    
+   
 }
