@@ -25,7 +25,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(echoWebSocketHandler(), "/echo").addInterceptors(httpAuthTokenHandShakeInterceptor()).setAllowedOrigins("*");
-        registry.addHandler(chatWebSocketHandler(), "/chat").setAllowedOrigins("*").withSockJS().setInterceptors(httpAuthTokenHandShakeInterceptor());
+        registry.addHandler(chatWebSocketHandler(), "/chat").addInterceptors(httpAuthTokenHandShakeInterceptor()).setAllowedOrigins("*");
     }
 
     @Bean
