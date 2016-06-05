@@ -16,5 +16,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ChatChannelRepository extends CrudRepository<ChatChannel,Long>{
     
-    public List<ChatChannel> findbyChatRoom(ChatRoom room);
+    public List<ChatChannel> findByChatRoom(ChatRoom room);
 }

@@ -77,7 +77,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             if (null == room) return;
             
             chatMessageRepository.save(newInstance(session, room, chatMessage));
-            List<ChatChannel> channels = chatChannelRepository.findbyChatRoom(room);
+            List<ChatChannel> channels = chatChannelRepository.findByChatRoom(room);
             
             for (ChatChannel channel : channels) {
                 
