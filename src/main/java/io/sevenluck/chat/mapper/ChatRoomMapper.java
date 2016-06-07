@@ -21,6 +21,7 @@ public class ChatRoomMapper {
     public static ChatRoomDTO toDTO(final ChatRoom value) {
         ChatRoomDTO result = new ChatRoomDTO();
         
+        result.setId(value.getId());
         result.setName(value.getName());
         result.setDescription(value.getDescription());
         result.setPublicChat(value.isPublicChat());

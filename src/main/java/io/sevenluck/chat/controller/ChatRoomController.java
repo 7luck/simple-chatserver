@@ -48,8 +48,8 @@ public class ChatRoomController {
         return chatRoomService.findByNickName(nickname);
     }
     
-    @RequestMapping(value="/member/{id}", method = RequestMethod.GET)
-    public List<ChatRoomDTO> getByMember(@PathVariable Long memberId) throws Exception {        
+    @RequestMapping(value="/member/{memberId}", method = RequestMethod.GET)
+    public List<ChatRoomDTO> getByMember(@PathVariable("memberId") Long memberId) throws Exception {        
         return chatChannelService.findByChatMember(memberId);
     }
     
