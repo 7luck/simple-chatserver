@@ -9,11 +9,15 @@ import io.sevenluck.chat.domain.ChatChannel;
 import io.sevenluck.chat.domain.ChatMember;
 import io.sevenluck.chat.domain.ChatRoom;
 import io.sevenluck.chat.dto.ChatChannelDTO;
+import io.sevenluck.chat.dto.ChatRoomDTO;
 import io.sevenluck.chat.exception.EntityNotFoundException;
 import io.sevenluck.chat.mapper.ChatChannelMapper;
+import io.sevenluck.chat.mapper.ChatRoomMapper;
 import io.sevenluck.chat.repository.ChatChannelRepository;
 import io.sevenluck.chat.repository.ChatMemberRepository;
 import io.sevenluck.chat.repository.ChatRoomRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +62,21 @@ public class ChatChannelService {
         }
         
         repository.delete(delete);        
+    }
+    
+    public List<ChatRoomDTO> findByChatMember(Long memberId) throws Exception {
+        final ChatMember member = memberRepository.findOne(memberId);
+        if (null == member) {
+            throw new EntityNotFoundException("member with id " + memberId + " not found.");
+        }
+        
+        List<ChatChannel> channels = repository.findByMember(member);
+        
+        List<ChatRoomDTO> chatrooms = new ArrayList<>();
+        for (ChatChannel channel : channels) {            
+            chatrooms.add(ChatRoomMapper.toDTO(channel.getChatRoom()));            
+        }
+        
+        return chatrooms;
     }
 }

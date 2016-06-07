@@ -10,6 +10,7 @@ import io.sevenluck.chat.dto.ChatRoomDTO;
 import io.sevenluck.chat.dto.ExceptionDTO;
 import io.sevenluck.chat.exception.ChatRoomAlreadyExists;
 import io.sevenluck.chat.exception.MemberAlreadyExistsException;
+import io.sevenluck.chat.service.ChatChannelService;
 import io.sevenluck.chat.service.ChatRoomService;
 import java.util.List;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,10 +39,18 @@ public class ChatRoomController {
  
     @Autowired
     private ChatRoomService chatRoomService;
+    @Autowired
+    private ChatChannelService chatChannelService;
+    
     
     @RequestMapping(method = RequestMethod.GET)
     public List<ChatRoomDTO> getAllByNickname(String nickname) {
         return chatRoomService.findByNickName(nickname);
+    }
+    
+    @RequestMapping(value="/member/{id}", method = RequestMethod.GET)
+    public List<ChatRoomDTO> getByMember(@PathVariable Long memberId) throws Exception {        
+        return chatChannelService.findByChatMember(memberId);
     }
     
     @RequestMapping(method = RequestMethod.POST)
