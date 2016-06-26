@@ -6,6 +6,7 @@
 package io.sevenluck.chat.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -18,6 +19,7 @@ public class ChatRoomDTO implements Serializable {
     private String description;
     private String password;
     private boolean publicChat;
+    private Date inserted;
 
     public ChatRoomDTO() {
     }
@@ -61,5 +63,15 @@ public class ChatRoomDTO implements Serializable {
     public void setPublicChat(boolean publicChat) {
         this.publicChat = publicChat;
     }
+
+    public Date getInserted() {
+        return inserted;
+    }
+
+    public void setInserted(Date inserted) {
+        this.inserted = inserted;
+    }
+    
+    
 
 }

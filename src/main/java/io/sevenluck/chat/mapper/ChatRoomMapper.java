@@ -26,7 +26,7 @@ public class ChatRoomMapper {
         result.setName(value.getName());
         result.setDescription(value.getDescription());
         result.setPublicChat(value.isPublicChat());
-        
+        result.setInserted(value.getInserted());
         return result;
     }
     
