@@ -11,6 +11,7 @@ import io.sevenluck.chat.util.MD5Util;
 import java.util.Date;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -25,7 +26,7 @@ public class ChatRoomMapper {
         result.setName(value.getName());
         result.setDescription(value.getDescription());
         result.setPublicChat(value.isPublicChat());
-        
+        result.setInserted(value.getInserted());
         return result;
     }
     
@@ -45,11 +46,14 @@ public class ChatRoomMapper {
         result.setDescription(value.getDescription());        
         
         if(BooleanUtils.isTrue(value.isPublicChat())) {
-            result.setPublicChat(true);
+            result.setPublicChat(true);            
             result.setPasswordKey(MD5Util.getMD5(value.getPassword()));
         } else {
             result.setPublicChat(false);
             result.setPasswordKey(null);
+        }
+        if (StringUtils.isEmpty(value.getDescription())) {
+            result.setDescription("default");
         }
         
         return result;
