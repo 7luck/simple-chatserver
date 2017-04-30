@@ -17,8 +17,10 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ChatSessionRepository extends CrudRepository<ChatSession, Long>  {
     
-    public List<ChatSession> findByAuthtoken(String authtoken);
+    //public List<ChatSession> findByAuthtoken(String authtoken);
+
+    ChatSession findByAuthtoken(String authtoken);
     
-    public List<ChatSession> findByMember(ChatMember member);
+    List<ChatSession> findByMember(ChatMember member);
     
 }

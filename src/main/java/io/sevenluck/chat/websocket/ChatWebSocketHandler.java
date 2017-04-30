@@ -54,18 +54,18 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         logger.info("afterConnectionEstablished from ip " + session.getRemoteAddress().getAddress());        
         
         final String token = (String) session.getAttributes().get(HttpAuthTokenHandShakeInterceptor.X_TOKEN);
-        List<ChatSession> chatSessions = chatSessionRepository.findByAuthtoken(token);
-        if (!sessions.isEmpty()) {
-            logger.info("chatsession {} assigned to token {}", chatSessions.get(0), token);
-            this.sessionMap.put(token, new SessionItem(chatSessions.get(0), session));
-        }        
+        ChatSession chatSession = chatSessionRepository.findByAuthtoken(token);
+
+        logger.info("chatsession {} assigned to token {}", chatSession, token);
+        this.sessionMap.put(token, new SessionItem(chatSession, session));
+
     }
     
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        final String myToken = (String) session.getAttributes().get(HttpAuthTokenHandShakeInterceptor.X_TOKEN);
+        final String token = (String) session.getAttributes().get(HttpAuthTokenHandShakeInterceptor.X_TOKEN);
         
-        logger.info("handleTextMessage with message {} and token {}", message, myToken);
+        logger.info("handleTextMessage with message {} and token {}", message, token);
         String payload = message.getPayload();        
         
         try {            
@@ -84,7 +84,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
                 List<ChatSession> chatSessions = chatSessionRepository.findByMember(channel.getMember());
                 for (ChatSession chatSession : chatSessions) {
                     
-                    if (!myToken.equals(chatSession.getAuthtoken()) && sessionMap.containsKey(chatSession.getAuthtoken())) {
+                    if (!token.equals(chatSession.getAuthtoken()) && sessionMap.containsKey(chatSession.getAuthtoken())) {
                         WebSocketSession wsSession = sessionMap.get(chatSession.getAuthtoken()).getSession();
                         final String stringifyJSONObject = mapper.writeValueAsString(chatMessage);
                         wsSession.sendMessage(new TextMessage(stringifyJSONObject));
